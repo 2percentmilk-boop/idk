@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Hub · Your next move</title>
+    <meta name="description" content="Play Chess, Dungeon Quest, Tower Defense, Cookie Clicker, Tetris, Scoundrel, and Solitaire in your personal arcade.">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23111720'/%3E%3Ctext x='32' y='47' text-anchor='middle' font-size='45' fill='%2362e6a7'%3E♟%3C/text%3E%3C/svg%3E">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<a class="skip-link" href="#gamesPage">Skip to games</a>
+<header class="topbar">
+    <nav>
+        <button class="nav-btn" data-page="homePage">Home</button>
+        <button class="nav-btn active" data-page="gamesPage">Games</button>
+        <button class="nav-btn" data-page="settingsPage">Settings</button>
+    </nav>
+</header>
+
+<main>
+
+<section id="homePage" class="page">
+
+    <div class="home-content">
+
+        <div class="clock" id="clock">12:00:00</div>
+        <div class="date" id="date"></div>
+
+        <form class="google-search" id="webSearch">
+            <span class="search-icon">⌕</span>
+            <input
+                id="searchInput"
+                type="text"
+                placeholder="Search the web" aria-label="Search the web"
+                autocomplete="off"
+            >
+            <button type="submit" class="search-submit">
+                SEARCH
+            </button>
+        </form>
+
+    </div>
+
+</section>
+
+<section id="gamesPage" class="page active-page" tabindex="-1">
+
+    <div class="page-header">
+        <span class="eyebrow">YOUR ARCADE</span><h1>Make your next move.</h1>
+        <p>Seven games. Pick your kind of challenge.</p><span class="library-count">07 <span>GAMES READY TO PLAY</span></span>
+    </div>
+
+
+
+    <div class="game-grid">
+        <button class="game-card chess-card" data-game="chess">
+            <div class="game-card-art chess-card-art"><span class="chess-card-piece" aria-hidden="true">♞</span><span class="card-number">01</span></div>
+            <div class="game-card-content"><div class="game-card-top"><span class="game-category">THE CLASSIC</span><span class="game-status">NEW</span></div><h2>Chess</h2><p>Think a few moves ahead. Challenge the computer or play a friend on this device.</p><div class="game-card-bottom"><span>Computer opponent</span><span>2 players</span></div><div class="game-play">PLAY CHESS <span>↗</span></div></div>
+        </button>
+
+        <button class="game-card dungeon-card" data-game="dungeon">
+
+            <div class="game-card-art"><canvas class="game-preview" id="dungeonPreview" width="480" height="280" aria-hidden="true"></canvas><span class="card-number">02</span></div>
+
+            <div class="game-card-content">
+
+                <div class="game-card-top">
+
+                    <span class="game-category">
+                        ADVENTURE
+                    </span>
+
+                    <span class="game-status">
+                        PLAYABLE
+                    </span>
+
+                </div>
+
+                <h2>Dungeon Quest</h2>
+
+                <p>
+                    Explore dangerous dungeons, defeat monsters,
+                    collect treasure and become stronger.
+                </p>
+
+                <div class="game-card-bottom">
+                    <span>⚔️ Combat</span>
+                    <span>💰 Loot</span>
+                    <span>🏰 3 Dungeons</span>
+                </div>
+
+                <div class="game-play">
+                    PLAY NOW
+                    <span>→</span>
+                </div>
+
+            </div>
+
+        </button>
+
+        <button class="game-card tower-card" data-game="tower">
+
+            <div class="game-card-art"><canvas class="game-preview" id="towerPreview" width="600" height="390" aria-hidden="true"></canvas><span class="card-number">03</span></div>
+
+            <div class="game-card-content">
+
+                <div class="game-card-top">
+
+                    <span class="game-category">
+                        STRATEGY
+                    </span>
+
+                    <span class="game-status">
+                        PLAYABLE
+                    </span>
+
+                </div>
+
+                <h2>Tower Defense</h2>
+
+                <p>
+                    Build powerful towers, defend your base and
+                    survive increasingly difficult enemy waves.
+                </p>
+
+                <div class="game-card-bottom">
+                    <span>🏹 5 Towers</span>
+                    <span>👹 20 Waves</span>
+                    <span>🗺️ 5 Maps</span>
+                </div>
+
+                <div class="game-play">
+                    PLAY NOW
+                    <span>→</span>
+                </div>
+
+            </div>
+
+        </button>
+
+        <button class="game-card cookie-card" data-game="cookie">
+            <div class="game-card-art cookie-card-art"><span class="cookie-card-icon" aria-hidden="true">🍪</span><span class="card-number">04</span></div>
+            <div class="game-card-content"><div class="game-card-top"><span class="game-category">ONE MORE CLICK</span><span class="game-status">NEW</span></div><h2>Cookie Clicker</h2><p>Start with a cookie. Build a bakery that keeps the batches coming.</p><div class="game-card-bottom"><span>Upgrades</span><span>Saved progress</span></div><div class="game-play">START BAKING <span>↗</span></div></div>
+        </button>
+        <button class="game-card blocks-card" data-game="blocks">
+            <div class="game-card-art blocks-card-art"><canvas id="blocksPreview" class="game-preview" width="480" height="280" aria-hidden="true"></canvas><span class="card-number">05</span></div>
+            <div class="game-card-content"><div class="game-card-top"><span class="game-category">FIND YOUR FLOW</span><span class="game-status">NEW</span></div><h2>Tetris</h2><p>Stack, rotate, and clear. Keep your board open as the pace picks up.</p><div class="game-card-bottom"><span>Endless levels</span><span>Hold &amp; ghost piece</span></div><div class="game-play">DROP IN <span>↗</span></div></div>
+        </button>
+        <button class="game-card scoundrel-card" data-game="scoundrel">
+            <div class="game-card-art card-table-art"><span class="playing-card-art black">♣<b>K</b></span><span class="playing-card-art red">♥<b>7</b></span><span class="card-number">06</span></div>
+            <div class="game-card-content"><div class="game-card-top"><span class="game-category">DUNGEON CARD GAME</span><span class="game-status">NEW</span></div><h2>Scoundrel</h2><p>Cross a dungeon built from one deck. Use weapons, drink potions, and survive every room.</p><div class="game-card-bottom"><span>Solo strategy</span><span>Quick rounds</span></div><div class="game-play">ENTER THE DUNGEON <span>↗</span></div></div>
+        </button>
+        <button class="game-card solitaire-card" data-game="solitaire">
+            <div class="game-card-art solitaire-card-art"><span class="playing-card-art red">♦<b>A</b></span><span class="playing-card-art black">♠<b>K</b></span><span class="card-number">07</span></div>
+            <div class="game-card-content"><div class="game-card-top"><span class="game-category">THE CLASSIC</span><span class="game-status">NEW</span></div><h2>Solitaire</h2><p>Play Klondike with draw-one cards. Build every foundation from Ace through King.</p><div class="game-card-bottom"><span>Draw one</span><span>Saved best score</span></div><div class="game-play">DEAL THE CARDS <span>↗</span></div></div>
+        </button>
+    </div>
+
+    <div id="scoundrelWindow" class="game-window card-game-window">
+        <div class="game-window-header"><div><h2>Scoundrel</h2><span>Survive the deck.</span></div><div class="window-buttons"><button id="scoundrelRules" class="pause-button">How to play</button><button id="scoundrelNew" class="pause-button">New game</button><button id="closeScoundrel" class="close-button" aria-label="Back to games">✕</button></div></div>
+        <div class="scoundrel-layout">
+            <section class="scoundrel-board"><div class="card-game-stats"><div><small>Health</small><strong id="scoundrelHealth">20</strong></div><div><small>Weapon</small><strong id="scoundrelWeapon">None</strong></div><div><small>Dungeon</small><strong id="scoundrelDeck">44</strong></div></div><div id="scoundrelMessage" class="card-game-message" role="status">Choose a card from the room.</div><div id="scoundrelRoom" class="scoundrel-room" aria-label="Current room"></div><div class="scoundrel-actions"><button id="scoundrelAvoid">Avoid this room</button></div></section>
+            <aside class="card-game-sidebar"><span class="eyebrow">YOUR RUN</span><h3>Choose three cards.</h3><p>Spades and clubs are monsters. Diamonds are weapons. Hearts restore health.</p><div class="scoundrel-legend"><span>♠ ♣ Monster</span><span>♦ Weapon</span><span>♥ Potion</span></div><p id="scoundrelDetail">You may avoid a full room, but not two rooms in a row.</p></aside>
+        </div>
+    </div>
+
+    <div id="solitaireWindow" class="game-window card-game-window solitaire-window">
+        <div class="game-window-header"><div><h2>Solitaire</h2><span>Classic Klondike, draw one.</span></div><div class="window-buttons"><button id="solitaireRules" class="pause-button">How to play</button><button id="solitaireNew" class="pause-button">New deal</button><button id="closeSolitaire" class="close-button" aria-label="Back to games">✕</button></div></div>
+        <div class="solitaire-toolbar"><span>Moves <b id="solitaireMoves">0</b></span><span>Score <b id="solitaireScore">0</b></span><span>Best <b id="solitaireBest">0</b></span><span id="solitaireMessage" role="status">Select the deck to draw.</span></div>
+        <div id="solitaireBoard" class="solitaire-board"><div id="solitaireTop" class="solitaire-top"></div><div id="solitaireTableau" class="solitaire-tableau"></div></div>
+    </div>
+
+    <div id="cookieWindow" class="game-window cookie-window">
+        <div class="game-window-header"><div><h2>Cookie Clicker</h2><span>Your own little cookie empire.</span></div><div class="window-buttons"><button id="cookieFullscreen" class="fullscreen-button">⛶ Full screen</button><button id="cookieReset" class="pause-button">Reset bakery</button><button id="closeCookie" class="close-button" aria-label="Back to games">✕</button></div></div>
+        <div class="cookie-layout">
+            <div class="cookie-kitchen">
+                <span class="eyebrow">FRESH FROM YOUR BAKERY</span><div id="cookieCount" class="cookie-count">0</div><span class="cookie-unit">cookies</span>
+                <div class="cookie-rates"><span><b id="cookiePerClick">1</b> per click</span><span><b id="cookiePerSecond">0</b> per second</span></div>
+                <div class="cookie-button-wrap"><button id="bigCookie" class="big-cookie" aria-label="Bake cookies"><span aria-hidden="true">🍪</span></button><div id="cookieParticles" class="cookie-particles" aria-hidden="true"></div></div>
+                <p class="cookie-prompt">Click, tap, or press Space on the cookie.</p>
+                <div class="bakery-totals"><div><small>Total baked</small><strong id="cookieTotal">0</strong></div><div><small>Handmade clicks</small><strong id="cookieClicks">0</strong></div></div>
+                <p id="cookieSaveStatus" class="save-note">Progress saves on this device.</p>
+                <p id="cookieMessage" class="cookie-message" role="status">Every great bakery starts with one cookie.</p>
+            </div>
+            <aside class="cookie-store"><span class="eyebrow">GROW YOUR BAKERY</span><h3>A few helping hands.</h3><p>Spend cookies to bake even more.</p>
+                <button id="cookieUpgrade" class="cookie-upgrade"><span><strong>Better recipe</strong><small id="cookieUpgradeBenefit">Double cookies per click</small></span><b id="cookieUpgradeCost">75</b></button>
+                <div class="cookie-shop-heading"><h4>Automatic bakers</h4><span>COOKIES / SEC</span></div><div id="cookieBuildings" class="cookie-buildings"></div>
+                <p class="cookie-store-note">Your bakers work while you play other games. Return later for up to 8 hours of offline baking.</p>
+            </aside>
+        </div>
+    </div>
+
+    <div id="blocksWindow" class="game-window blocks-window">
+        <div class="game-window-header"><div><h2>Tetris</h2><span>Make room for your next move.</span></div><div class="window-buttons"><button id="blocksFullscreen" class="fullscreen-button">⛶ Full screen</button><button id="blocksPause" class="pause-button" disabled>Ⅱ Pause</button><button id="blocksNew" class="pause-button">New game</button><button id="closeBlocks" class="close-button" aria-label="Back to games">✕</button></div></div>
+        <div class="blocks-stats"><div><small>Score</small><strong id="blocksScore">0</strong></div><div><small>Best</small><strong id="blocksBest">0</strong></div><div><small>Level</small><strong id="blocksLevel">1</strong></div><div><small>Lines</small><strong id="blocksLines">0</strong></div></div>
+        <div class="blocks-layout"><div class="blocks-play-area"><div class="blocks-board-frame">
+            <canvas id="blocksCanvas" width="400" height="800" tabindex="0" role="img" aria-label="Tetris board. Use arrows to move, Up to rotate, Space to drop, C to hold, and P to pause."></canvas>
+            <div id="blocksOverlay" class="blocks-overlay"><div><span class="eyebrow">TETRIS</span><h3 id="blocksOverlayTitle">Ready to stack?</h3><p id="blocksOverlayText">Fill a row to clear it. How long can you keep going?</p><button id="blocksAction" class="primary-button">Start game</button></div></div>
+        </div><div class="blocks-queue"><div><h4>HOLD <kbd>C</kbd></h4><canvas id="blocksHold" width="120" height="85" aria-label="Held piece: none" role="img"></canvas></div><div><h4>UP NEXT</h4><canvas id="blocksNext" width="120" height="270" aria-label="Next three pieces" role="img"></canvas></div><span class="queue-note">A fresh mix of all seven pieces.</span></div></div>
+        <aside class="blocks-sidebar"><span class="eyebrow">STAY IN THE FLOW</span><h3>Clear a little space.</h3><p>Complete horizontal rows. Clear four at once for an 800-point bonus, multiplied by your level.</p>
+            <div id="blocksMessage" class="blocks-message" role="status">Your next personal best starts here.</div>
+            <div class="level-progress"><div><span>Next level</span><b id="blocksLevelProgress">0 / 10 lines</b></div><progress id="blocksProgress" value="0" max="10" aria-label="Lines toward next level"></progress></div>
+            <dl class="blocks-keys"><div><dt>Move</dt><dd>← →</dd></div><div><dt>Rotate</dt><dd>↑ / X · Z reverse</dd></div><div><dt>Soft drop</dt><dd>↓</dd></div><div><dt>Hard drop</dt><dd>Space</dd></div><div><dt>Hold piece</dt><dd>C / Shift</dd></div><div><dt>Pause</dt><dd>P / Esc</dd></div></dl>
+            <p class="blocks-tip">The outline shows where your piece will land. Hold a piece to save it for later.</p>
+        </aside></div>
+        <div class="blocks-touch" aria-label="Tetris touch controls"><button data-block-control="left" aria-label="Move left">←</button><button data-block-control="rotate" aria-label="Rotate clockwise">↻</button><button data-block-control="right" aria-label="Move right">→</button><button data-block-control="down" aria-label="Soft drop">↓</button><button data-block-control="hold">Hold</button><button data-block-control="drop" class="primary-button">Drop</button></div>
+    </div>
+
+    <div id="chessWindow" class="game-window chess-window">
+  <div class="game-window-header"><div><h2>Chess</h2><span>A little patience. A better position.</span></div><div class="window-buttons"><button id="chessFullscreen" class="fullscreen-button">⛶ Full screen</button><button id="closeChess" class="close-button" aria-label="Back to games">✕</button></div></div>
+  <div class="chess-layout"><div class="chess-play-area">
+    <div class="player-strip"><span class="player-avatar black-avatar">♟</span><div><strong id="opponentName">Computer</strong><span id="capturedByBlack" class="captured" aria-label="Pieces captured by Black"></span></div><span id="blackTurn" class="turn-chip">BLACK</span></div>
+    <div class="chess-board-wrap"><div id="chessBoard" class="chess-board" role="group" aria-label="Chess board. Select a piece, then a highlighted square. Use arrow keys to move between squares."></div></div>
+    <div class="player-strip"><span class="player-avatar white-avatar">♟</span><div><strong id="playerName">You</strong><span id="capturedByWhite" class="captured" aria-label="Pieces captured by White"></span></div><span id="whiteTurn" class="turn-chip">WHITE</span></div>
+  </div><aside class="chess-sidebar"><span class="eyebrow">AT THE BOARD</span><h3 id="chessStatus" aria-live="polite">Your move</h3><p id="chessDetail">You play White. Select a piece to see its legal moves.</p>
+    <div class="chess-options"><label for="chessMode">Opponent</label><select id="chessMode"><option value="computer">Computer</option><option value="local">Friend on this device</option></select><label for="chessDifficulty">Difficulty</label><select id="chessDifficulty"><option value="easy">Casual</option><option value="medium" selected>Balanced</option><option value="hard">Challenging</option></select></div>
+    <div class="chess-actions"><button id="chessNew" class="primary-button">New game</button><button id="chessUndo">Undo move</button><button id="chessFlip">Flip board</button></div>
+    <div class="moves-heading"><h4>Move history</h4><span id="moveCount">0 moves</span></div><div id="chessHistory" class="chess-history"><p class="empty-history">Your opening move starts the story.</p></div>
+    <p class="chess-note">Castling, en passant, promotion, checkmate and draw detection included.</p>
+  </aside></div>
+</div>
+<div id="dungeonWindow" class="game-window">
+
+        <div class="game-window-header">
+
+            <div>
+                <h2>Dungeon Quest</h2>
+                <span id="levelText">Dungeon 1</span>
+            </div>
+
+            <div class="window-buttons">
+
+                <button id="dungeonFullscreen" class="fullscreen-button">
+                    ⛶ FULL SCREEN
+                </button>
+
+                <button id="openDungeonShop" class="shop-open-button">Shop <kbd>B</kbd></button>
+                <button id="dungeonPause" class="pause-button">
+                    Ⅱ PAUSE
+                </button>
+
+                <button id="closeDungeon" aria-label="Back to games" class="close-button">
+                    ✕
+                </button>
+
+            </div>
+
+        </div>
+
+        <div class="game-area">
+
+            <canvas
+                id="dungeonCanvas" tabindex="0" aria-label="Dungeon Quest. Move with WASD or arrow keys, Space to attack, Shift to dash, E to open a chest, B for shop, P to pause."
+                width="960"
+                height="560"
+            ></canvas>
+
+            <div class="game-hud">
+
+                <div class="hud-box health-hud">
+
+                    <span class="hud-label">HP</span>
+
+                    <div class="health-bar">
+                        <div id="healthFill" class="health-fill"></div>
+                    </div>
+
+                    <span id="healthText">
+                        100 / 100
+                    </span>
+
+                </div>
+
+                <div class="hud-box">
+                    <span>💰</span>
+                    <span id="coinText">0</span>
+                </div>
+
+                <div class="hud-box">
+                    <span>👹</span>
+                    <span id="enemyText">0</span>
+                </div>
+
+            </div>
+
+            <div id="gameMessage" class="game-message">
+                Explore the dungeon.
+            </div>
+
+            <div id="dungeonPaused" class="pause-overlay">
+
+                <div class="pause-box">
+
+                    <h2>GAME PAUSED</h2>
+                    <p>Everything is frozen.</p>
+
+                    <button id="dungeonResume">
+                        RESUME
+                    </button>
+
+                </div>
+
+            </div>
+
+            <div id="gameOver" class="game-overlay">
+
+                <div class="overlay-box">
+
+                    <h2 id="overlayTitle">
+                        YOU DIED
+                    </h2>
+
+                    <p id="overlayText"></p>
+
+                    <div class="overlay-buttons">
+
+                        <button id="restartButton">
+                            RESTART
+                        </button>
+
+                        <button id="dungeonShopButton">
+                            SHOP
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div id="dungeonShop" class="dungeon-shop">
+
+            <div class="shop-header">
+
+                <div>
+
+                    <h2>Dungeon Shop</h2>
+                    <p>Spend your coins on upgrades.</p>
+
+                </div>
+
+                <button id="closeShop" aria-label="Close shop" class="close-button">
+                    ✕
+                </button>
+
+            </div>
+
+            <div class="shop-coins">
+                💰 <span id="shopCoinText">0</span> coins
+            </div>
+
+            <div class="shop-grid">
+
+                <button class="shop-item" data-shop="health">
+                    <span>❤️</span>
+                    <strong>Health Potion</strong>
+                    <small>Restore 35 HP</small>
+                    <b>25 coins</b>
+                </button>
+
+                <button class="shop-item" data-shop="maxHealth">
+                    <span>🛡️</span>
+                    <strong>Heavy Armor</strong>
+                    <small>+20 maximum HP</small>
+                    <b>60 coins</b>
+                </button>
+
+                <button class="shop-item" data-shop="damage">
+                    <span>⚔️</span>
+                    <strong>Sharpened Blade</strong>
+                    <small>+8 attack damage</small>
+                    <b>70 coins</b>
+                </button>
+
+                <button class="shop-item" data-shop="speed">
+                    <span>👟</span>
+                    <strong>Swift Boots</strong>
+                    <small>Move faster</small>
+                    <b>50 coins</b>
+                </button>
+
+            </div>
+
+        </div>
+
+        <div class="touch-controls" aria-label="Dungeon touch controls"><div class="dpad"><button data-key="ArrowUp" aria-label="Move up">↑</button><button data-key="ArrowLeft" aria-label="Move left">←</button><button data-key="ArrowDown" aria-label="Move down">↓</button><button data-key="ArrowRight" aria-label="Move right">→</button></div><div class="touch-actions"><button data-action="attack">Attack</button><button data-action="dash">Dash</button><button data-action="chest">Chest</button></div></div>
+        <div class="controls">
+            <div><b>Dash</b> SHIFT <span id="dashStatus">Ready</span></div>
+            <div><b>Shop</b> B</div>
+
+            <div><b>Move</b> WASD / Arrows</div>
+            <div><b>Attack</b> SPACE</div>
+            <div><b>Chest</b> E</div>
+            <div><b>Pause</b> P</div>
+            <div><b>Restart</b> R</div>
+
+        </div>
+
+    </div>
+
+
+
+    <div id="towerWindow" class="game-window tower-window">
+
+        <div class="game-window-header">
+
+            <div>
+                <h2>Tower Defense</h2>
+                <span id="towerMapName">Green Valley</span>
+            </div>
+
+            <div class="window-buttons">
+
+                <button id="towerFullscreen" class="fullscreen-button">
+                    ⛶ FULL SCREEN
+                </button>
+
+                <button id="towerPause" class="pause-button">
+                    Ⅱ PAUSE
+                </button>
+
+                <button id="closeTower" aria-label="Back to games" class="close-button">
+                    ✕
+                </button>
+
+            </div>
+
+        </div>
+
+        <div class="tower-toolbar">
+
+            <div class="tower-stat">
+                <span>💰</span>
+                <strong id="towerMoney">300</strong>
+            </div>
+
+            <div class="tower-stat">
+                <span>❤️</span>
+                <strong id="baseHealth">25</strong>
+            </div>
+
+            <div class="tower-stat">
+                <span>🌊</span>
+                <strong id="waveText">0 / 20</strong>
+            </div>
+
+            <div class="tower-stat wave-status">
+                <span id="waveStatus">READY</span>
+            </div>
+
+            <button id="towerSpeed" class="pause-button" aria-label="Game speed">1× Speed</button>
+            <button id="startWave" class="start-wave">
+                START WAVE
+            </button>
+
+        </div>
+
+        <div class="tower-layout">
+
+            <div class="tower-board-container">
+
+                <canvas
+                    id="towerCanvas" tabindex="0" aria-label="Tower Defense build grid. Arrow keys choose a tile, Enter builds or selects a tower. Space starts a wave."
+                    width="2000"
+                    height="1300"
+                ></canvas>
+
+                <div id="towerPaused" class="pause-overlay">
+
+                    <div class="pause-box">
+
+                        <h2>GAME PAUSED</h2>
+                        <p>Your defenses are frozen.</p>
+
+                        <button id="towerResume">
+                            RESUME
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <div id="towerGameOver" class="game-overlay">
+
+                    <div class="overlay-box">
+
+                        <h2 id="towerOverlayTitle">
+                            VICTORY!
+                        </h2>
+
+                        <p id="towerOverlayText"></p>
+
+                        <button id="towerRestart">
+                            NEW GAME
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <aside class="tower-sidebar">
+
+                <h3>BUILD</h3>
+
+                <button class="tower-select active" data-tower="archer">
+                    <span class="tower-symbol">🏹</span>
+                    <div>
+                        <strong>Archer</strong>
+                        <small>Fast single target</small>
+                    </div>
+                    <b>$50</b>
+                </button>
+
+                <button class="tower-select" data-tower="cannon">
+                    <span class="tower-symbol">💣</span>
+                    <div>
+                        <strong>Cannon</strong>
+                        <small>Powerful splash damage</small>
+                    </div>
+                    <b>$95</b>
+                </button>
+
+                <button class="tower-select" data-tower="frost">
+                    <span class="tower-symbol">❄️</span>
+                    <div>
+                        <strong>Frost</strong>
+                        <small>Slows enemies</small>
+                    </div>
+                    <b>$80</b>
+                </button>
+
+                <button class="tower-select" data-tower="sniper">
+                    <span class="tower-symbol">🎯</span>
+                    <div>
+                        <strong>Sniper</strong>
+                        <small>Extreme range</small>
+                    </div>
+                    <b>$135</b>
+                </button>
+
+                <button class="tower-select" data-tower="tesla">
+                    <span class="tower-symbol">⚡</span>
+                    <div>
+                        <strong>Tesla</strong>
+                        <small>Chains between enemies</small>
+                    </div>
+                    <b>$160</b>
+                </button>
+
+                <div class="tower-info-panel">
+
+                    <h3 id="selectedTowerName">
+                        Archer Tower
+                    </h3>
+
+                    <p id="selectedTowerDescription">
+                        Fast attacks against individual enemies.
+                    </p>
+
+                    <div class="tower-stats">
+
+                        <span>
+                            Damage
+                            <b id="towerDamage">14</b>
+                        </span>
+
+                        <span>
+                            Range
+                            <b id="towerRange">3.3</b>
+                        </span>
+
+                        <span>
+                            Fire Rate
+                            <b id="towerFireRate">0.65s</b>
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <div
+                    id="selectedTowerPanel"
+                    class="selected-tower-panel hidden"
+                >
+
+                    <h3>SELECTED TOWER</h3><label class="target-label" for="towerTarget">Target</label><select id="towerTarget"><option value="first">First to base</option><option value="strongest">Strongest</option><option value="nearest">Nearest</option></select>
+
+                    <p id="selectedPlacedName">
+                        Archer Tower
+                    </p>
+
+                    <div class="upgrade-level">
+                        Level <strong id="placedLevel">1</strong>
+                    </div>
+
+                    <button id="upgradeTower" class="upgrade-button">
+                        UPGRADE
+                        <span id="upgradeCost">$70</span>
+                    </button>
+
+                    <button id="sellTower" class="sell-button">
+                        SELL
+                        <span id="sellValue">$25</span>
+                    </button>
+
+                </div>
+
+                <div class="map-selector">
+
+                    <h3>MAP SELECT</h3>
+
+                    <button class="map-button active" data-map="valley">
+                        🌿 Green Valley
+                    </button>
+
+                    <button class="map-button" data-map="desert">
+                        🏜️ Desert Crossing
+                    </button>
+
+                    <button class="map-button" data-map="ice">
+                        ❄️ Frozen Ridge
+                    </button>
+
+                    <button class="map-button" data-map="ruins">
+                        🏛️ Lost Ruins
+                    </button>
+
+                    <button class="map-button" data-map="volcano">
+                        🌋 Volcano Core
+                    </button>
+
+                </div>
+
+            </aside>
+
+        </div>
+
+        <div id="towerFeedback" class="tower-feedback" role="status">Select a tower, then choose a tile beside the path.</div>
+        <div class="tower-help">
+
+            <b>How to play:</b>
+            Select a tower and click or tap an empty tile beside the path.
+            Click a tower to select it. Upgrade or sell it from the panel.
+            Keep the enemies away from your base.
+
+        </div>
+
+    </div>
+
+</section>
+
+<section id="settingsPage" class="page">
+
+    <div class="page-header">
+
+        <h1>Settings</h1>
+        <p>Customize your Game Hub.</p>
+
+    </div>
+
+    <div class="settings-panel">
+
+        <div class="setting-row">
+
+            <div>
+                <h3>Theme</h3>
+                <p>Change the appearance.</p>
+            </div>
+
+            <select id="themeSelect" aria-label="Theme">
+                <option value="dark">Dark</option>
+                <option value="light">Light</option>
+                <option value="midnight">Midnight</option>
+                <option value="ocean">Ocean</option>
+                <option value="forest">Forest</option>
+                <option value="sunset">Sunset</option>
+                <option value="purple">Purple</option>
+            </select>
+
+        </div>
+
+        <div class="setting-row">
+
+            <div>
+                <h3>Sound</h3>
+                <p>Enable game sounds.</p>
+            </div>
+
+            <label class="switch">
+
+                <input
+                    type="checkbox"
+                    id="soundToggle" aria-label="Enable game sounds"
+                    checked
+                >
+
+                <span></span>
+
+            </label>
+
+        </div>
+
+        <div class="setting-row">
+
+            <div>
+                <h3>Animations</h3>
+                <p>Enable interface animations.</p>
+            </div>
+
+            <label class="switch">
+
+                <input
+                    type="checkbox"
+                    id="animationToggle" aria-label="Enable interface animations"
+                    checked
+                >
+
+                <span></span>
+
+            </label>
+
+        </div>
+
+        <button id="resetSettings" class="reset-settings">
+            RESET SETTINGS
+        </button>
+
+    </div>
+
+</section>
+
+</main>
+
+<dialog id="hubConfirm" class="hub-dialog"><h2 id="confirmTitle">Start again?</h2><p id="confirmText">Your current progress will be lost.</p><div class="dialog-buttons"><button id="confirmCancel">Keep playing</button><button id="confirmAccept" class="primary-button">Start again</button></div></dialog>
+<dialog id="chessPromotion" class="hub-dialog"><h2>Promote your pawn</h2><p>Choose your new piece.</p><div id="promotionChoices" class="promotion-choices"></div></dialog>
+<script src="script.js"></script>
+
+</body>
+</html>
