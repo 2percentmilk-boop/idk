@@ -3490,6 +3490,9 @@ document.addEventListener("DOMContentLoaded", () => {
             $("chessWindow").classList.remove("open");
             $("cookieWindow").classList.remove("open");
             $("blocksWindow").classList.remove("open");
+            $("polyWindow")?.classList.remove("open");
+            $("scoundrelWindow")?.classList.remove("open");
+            $("solitaireWindow")?.classList.remove("open");
             window.dispatchEvent(new Event("hubgamechange"));
         }
     }
@@ -5605,7 +5608,7 @@ document.addEventListener("DOMContentLoaded", () => {
     $('towerTarget').addEventListener('change',()=>{if(selectedPlacedTower)selectedPlacedTower.target=$('towerTarget').value;});
     towerCanvas.addEventListener('keydown',event=>{if(towerPaused||towerFinished||hasModal())return;const direction={ArrowLeft:[-1,0],ArrowRight:[1,0],ArrowUp:[0,-1],ArrowDown:[0,1]}[event.key];if(direction){event.preventDefault();mouseGrid??={x:2,y:5};mouseGrid.x=Math.max(0,Math.min(COLS-1,mouseGrid.x+direction[0]));mouseGrid.y=Math.max(0,Math.min(ROWS-1,mouseGrid.y+direction[1]));towerFeedback('Tile '+(mouseGrid.x+1)+', '+(mouseGrid.y+1)+'. '+(isPath(mouseGrid.x,mouseGrid.y)?'Path: cannot build.':towerAt(mouseGrid.x,mouseGrid.y)?'Tower here. Enter to select.':'Enter to build.'));}if(event.key==='Enter'){event.preventDefault();mouseGrid??={x:2,y:5};buildTower(mouseGrid.x,mouseGrid.y);}});
     document.querySelectorAll('.game-card').forEach(card=>card.addEventListener('click',()=>{
-        const game=card.dataset.game;if(game!=='dungeon')closeDungeon();if(game!=='tower')closeTower();if(game!=='chess')$('chessWindow').classList.remove('open');if(game!=='cookie')$('cookieWindow').classList.remove('open');if(game!=='blocks')$('blocksWindow').classList.remove('open');if(game!=='scoundrel')$('scoundrelWindow')?.classList.remove('open');if(game!=='solitaire')$('solitaireWindow')?.classList.remove('open');window.dispatchEvent(new Event('hubgamechange'));
+        const game=card.dataset.game;if(game!=='dungeon')closeDungeon();if(game!=='tower')closeTower();if(game!=='chess')$('chessWindow').classList.remove('open');if(game!=='cookie')$('cookieWindow').classList.remove('open');if(game!=='blocks')$('blocksWindow').classList.remove('open');if(game!=='poly')$('polyWindow')?.classList.remove('open');if(game!=='scoundrel')$('scoundrelWindow')?.classList.remove('open');if(game!=='solitaire')$('solitaireWindow')?.classList.remove('open');window.dispatchEvent(new Event('hubgamechange'));
         if(game==='tower'){$('towerPaused').classList.toggle('show',towerPaused);towerCanvas.focus({preventScroll:true});}
     }));
     $('closeDungeon').addEventListener('click',()=>document.querySelector('[data-game="dungeon"]').focus());$('closeTower').addEventListener('click',()=>document.querySelector('[data-game="tower"]').focus());
@@ -5879,6 +5882,49 @@ document.addEventListener('DOMContentLoaded',()=>{
 });
 
 
+/* ===== poly-track.js ===== */
+(function(){
+    const $=id=>document.getElementById(id),windowEl=$('polyWindow'),canvas=$('polyCanvas');
+    if(!windowEl||!canvas)return;
+    const ctx=canvas.getContext('2d'),preview=$('polyPreview'),keys=new Set(),TAU=Math.PI*2,bestKey='gameHubPolyBest.v1';
+    let running=false,finished=false,angle=0,lane=0,speed=0,time=0,last=0,lapStart=0,lap=1,best=Number(localStorage.getItem(bestKey))||0;
+    const active=()=>windowEl.classList.contains('open')&&$('gamesPage').classList.contains('active-page');
+    const motion=()=>!document.body.classList.contains('no-animations')&&!window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function setText(id,text){$(id).textContent=text;}
+    function format(value){return value?value.toFixed(2):'--';}
+    function paintPreview(){if(preview)preview.getContext('2d').drawImage(canvas,0,0,preview.width,preview.height);}
+    function reset(){running=false;finished=false;angle=0;lane=0;speed=0;time=0;lap=1;lapStart=0;setText('polyLap','1 / 3');setText('polyTime','0.00');setText('polyMessage','Press start when you are ready.');$('polyOverlay').hidden=false;$('polyOverlayTitle').textContent='Ready to race?';$('polyOverlayText').textContent='Hold the racing line for three laps.';$('polyAction').textContent='START RACE';draw();paintPreview();}
+    function start(){running=true;finished=false;angle=0;lane=0;speed=0;time=0;lap=1;lapStart=0;last=performance.now();$('polyOverlay').hidden=true;setText('polyMessage','Clean lines make fast laps.');canvas.focus({preventScroll:true});}
+    function update(dt){
+        const throttle=keys.has('ArrowUp')||keys.has('w'),brake=keys.has('ArrowDown')||keys.has('s');
+        speed=Math.max(0,Math.min(1, speed+(throttle?dt*0.7:-dt*0.18)-(brake?dt*0.9:0)));
+        const steering=(keys.has('ArrowRight')||keys.has('d')?1:0)-(keys.has('ArrowLeft')||keys.has('a')?1:0);
+        lane+=steering*dt*(.9+speed*1.7);lane*=Math.pow(.08,dt);lane=Math.max(-.86,Math.min(.86,lane));
+        angle+=speed*dt*(.72-Math.abs(lane)*.12);time+=dt;setText('polyTime',time.toFixed(2));
+        if(angle>=TAU){angle-=TAU;const lapTime=time-lapStart;lapStart=time;if(lap<3){lap++;setText('polyLap',lap+' / 3');setText('polyMessage','Lap '+(lap-1)+' complete in '+lapTime.toFixed(2)+' seconds.');hubSound('coin');}else{running=false;finished=true;best=best?Math.min(best,time):time;localStorage.setItem(bestKey,String(best));setText('polyBest',best.toFixed(2));setText('polyMessage','Race complete in '+time.toFixed(2)+' seconds.');$('polyOverlay').hidden=false;$('polyOverlayTitle').textContent='Finish line.';$('polyOverlayText').textContent='Your time: '+time.toFixed(2)+' seconds.';$('polyAction').textContent='RACE AGAIN';hubSound('win');}}
+    }
+    function draw(){
+        const w=canvas.width,h=canvas.height,cx=w/2,cy=h/2+8,outerX=370,outerY=205,innerX=205,innerY=100;
+        ctx.clearRect(0,0,w,h);ctx.fillStyle='#09151a';ctx.fillRect(0,0,w,h);
+        ctx.fillStyle='#102c2d';ctx.beginPath();ctx.ellipse(cx,cy,outerX+22,outerY+22,0,0,TAU);ctx.fill();
+        ctx.fillStyle='#26363a';ctx.beginPath();ctx.ellipse(cx,cy,outerX,outerY,0,0,TAU);ctx.fill();
+        ctx.fillStyle='#09151a';ctx.beginPath();ctx.ellipse(cx,cy,innerX,innerY,0,0,TAU);ctx.fill();
+        ctx.save();ctx.setLineDash([18,18]);ctx.strokeStyle='#d6e2c855';ctx.lineWidth=3;ctx.beginPath();ctx.ellipse(cx,cy,(outerX+innerX)/2,(outerY+innerY)/2,0,0,TAU);ctx.stroke();ctx.restore();
+        for(let i=0;i<24;i++){const a=i*TAU/24+(running?time*.12:0),x=cx+Math.cos(a)*outerX,y=cy+Math.sin(a)*outerY;ctx.fillStyle=i%2?'#e6d9a1':'#e96d67';ctx.fillRect(x-5,y-5,10,10);}
+        const carAngle=angle-Math.PI/2,x=cx+Math.cos(angle)*((outerX+innerX)/2+lane*82),y=cy+Math.sin(angle)*((outerY+innerY)/2+lane*42);ctx.save();ctx.translate(x,y);ctx.rotate(carAngle);ctx.fillStyle='#8eecbd';ctx.shadowColor=motion()?'#8eecbd':'transparent';ctx.shadowBlur=motion()?18:0;ctx.fillRect(-13,-23,26,46);ctx.fillStyle='#173b3d';ctx.fillRect(-9,-8,18,14);ctx.fillStyle='#f4d36d';ctx.fillRect(-9,-21,6,5);ctx.fillRect(3,-21,6,5);ctx.restore();
+        ctx.fillStyle='#ffffff18';ctx.font='700 14px Segoe UI, sans-serif';ctx.fillText('START / FINISH',cx-45,cy-outerY-17);
+    }
+    function loop(now){if(active()){const dt=Math.min(.05,Math.max(0,(now-last)/1000));last=now;if(running)update(dt);draw();}requestAnimationFrame(loop);}
+    $('polyStart').onclick=start;$('polyAction').onclick=()=>finished?start():start();$('polyNew').onclick=reset;
+    $('closePoly').onclick=()=>{running=false;windowEl.classList.remove('open');$('polyWindow').closest('section')?.focus();document.querySelector('[data-game="poly"]').focus();};
+    windowEl.addEventListener('keydown',event=>{if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','w','a','s','d'].includes(event.key)){event.preventDefault();keys.add(event.key);}if(event.key.toLowerCase()==='r')reset();});
+    windowEl.addEventListener('keyup',event=>keys.delete(event.key));window.addEventListener('blur',()=>keys.clear());
+    $('polyFullscreen').onclick=async()=>{try{if(document.fullscreenElement===windowEl)await document.exitFullscreen();else await windowEl.requestFullscreen();}catch{setText('polyMessage','Full screen is unavailable in this browser.');}};
+    document.addEventListener('fullscreenchange',()=>{$('polyFullscreen').textContent=document.fullscreenElement===windowEl?'⛶ EXIT FULL SCREEN':'⛶ FULL SCREEN';});
+    document.querySelector('[data-game="poly"]').addEventListener('click',()=>{windowEl.classList.add('open');setText('polyBest',best?best.toFixed(2):'--');reset();windowEl.scrollIntoView({behavior:'smooth',block:'start'});});
+    reset();requestAnimationFrame(loop);
+})();
+
 /* ===== card-games.js ===== */
 document.addEventListener('DOMContentLoaded',()=>{
   'use strict';
@@ -5889,7 +5935,10 @@ document.addEventListener('DOMContentLoaded',()=>{
   const open=(kind)=>{$(kind+'Window').classList.add('open');$(kind+'Window').scrollIntoView({behavior:'smooth',block:'start'});};
   for(const kind of ['scoundrel','solitaire']){
     document.querySelector('[data-game="'+kind+'"]').addEventListener('click',()=>open(kind));
-    $('close'+kind[0].toUpperCase()+kind.slice(1)).addEventListener('click',()=>{$(kind+'Window').classList.remove('open');document.querySelector('[data-game="'+kind+'"]').focus();});
+    $('close'+kind[0].toUpperCase()+kind.slice(1)).addEventListener('click',()=>{$(kind+'Window').classList.remove('open');if(document.fullscreenElement===gameWindow)document.exitFullscreen().catch(()=>{});document.querySelector('[data-game="'+kind+'"]').focus();});
+        const gameWindow=$(kind+'Window'),fullscreenButton=$(kind+'Fullscreen');
+        fullscreenButton.addEventListener('click',async()=>{try{if(document.fullscreenElement===gameWindow)await document.exitFullscreen();else await gameWindow.requestFullscreen();}catch{const message=$(kind+'Message');if(message)message.textContent='Full screen is unavailable in this browser.';}});
+        document.addEventListener('fullscreenchange',()=>{fullscreenButton.textContent=document.fullscreenElement===gameWindow?'⛶ EXIT FULL SCREEN':'⛶ FULL SCREEN';});
   }
 
   let sd=[],room=[],health=20,weapon=null,lastMonster=0,avoided=false,roomPicks=0,scoundrelOver=false;

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Game Hub · Your next move</title>
-    <meta name="description" content="Play Chess, Dungeon Quest, Tower Defense, Cookie Clicker, Tetris, Scoundrel, and Solitaire in your personal arcade.">
+    <meta name="description" content="Play Chess, Dungeon Quest, Tower Defense, Cookie Clicker, Tetris, Scoundrel, Solitaire, and Poly Track in your personal arcade.">
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23111720'/%3E%3Ctext x='32' y='47' text-anchor='middle' font-size='45' fill='%2362e6a7'%3E♟%3C/text%3E%3C/svg%3E">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -49,7 +49,7 @@
 
     <div class="page-header">
         <span class="eyebrow">YOUR ARCADE</span><h1>Make your next move.</h1>
-        <p>Seven games. Pick your kind of challenge.</p><span class="library-count">07 <span>GAMES READY TO PLAY</span></span>
+        <p>Eight games. Pick your kind of challenge.</p><span class="library-count">08 <span>GAMES READY TO PLAY</span></span>
     </div>
 
 
@@ -140,26 +140,31 @@
 
         </button>
 
+        <button class="game-card poly-card" data-game="poly">
+            <div class="game-card-art poly-card-art"><canvas id="polyPreview" class="game-preview" width="480" height="280" aria-hidden="true"></canvas><span class="card-number">04</span></div>
+            <div class="game-card-content"><div class="game-card-top"><span class="game-category">TIME TRIAL</span><span class="game-status">NEW</span></div><h2>Poly Track</h2><p>Thread a neon circuit, hold the racing line, and shave seconds off your best lap.</p><div class="game-card-bottom"><span>3 laps</span><span>Best lap saved</span></div><div class="game-play">START RACING <span>↗</span></div></div>
+        </button>
+
         <button class="game-card cookie-card" data-game="cookie">
-            <div class="game-card-art cookie-card-art"><span class="cookie-card-icon" aria-hidden="true">🍪</span><span class="card-number">04</span></div>
+            <div class="game-card-art cookie-card-art"><span class="cookie-card-icon" aria-hidden="true">🍪</span><span class="card-number">05</span></div>
             <div class="game-card-content"><div class="game-card-top"><span class="game-category">ONE MORE CLICK</span><span class="game-status">NEW</span></div><h2>Cookie Clicker</h2><p>Start with a cookie. Build a bakery that keeps the batches coming.</p><div class="game-card-bottom"><span>Upgrades</span><span>Saved progress</span></div><div class="game-play">START BAKING <span>↗</span></div></div>
         </button>
         <button class="game-card blocks-card" data-game="blocks">
-            <div class="game-card-art blocks-card-art"><canvas id="blocksPreview" class="game-preview" width="480" height="280" aria-hidden="true"></canvas><span class="card-number">05</span></div>
+            <div class="game-card-art blocks-card-art"><canvas id="blocksPreview" class="game-preview" width="480" height="280" aria-hidden="true"></canvas><span class="card-number">06</span></div>
             <div class="game-card-content"><div class="game-card-top"><span class="game-category">FIND YOUR FLOW</span><span class="game-status">NEW</span></div><h2>Tetris</h2><p>Stack, rotate, and clear. Keep your board open as the pace picks up.</p><div class="game-card-bottom"><span>Endless levels</span><span>Hold &amp; ghost piece</span></div><div class="game-play">DROP IN <span>↗</span></div></div>
         </button>
         <button class="game-card scoundrel-card" data-game="scoundrel">
-            <div class="game-card-art card-table-art"><span class="playing-card-art black">♣<b>K</b></span><span class="playing-card-art red">♥<b>7</b></span><span class="card-number">06</span></div>
+            <div class="game-card-art card-table-art"><span class="playing-card-art black">♣<b>K</b></span><span class="playing-card-art red">♥<b>7</b></span><span class="card-number">07</span></div>
             <div class="game-card-content"><div class="game-card-top"><span class="game-category">DUNGEON CARD GAME</span><span class="game-status">NEW</span></div><h2>Scoundrel</h2><p>Cross a dungeon built from one deck. Use weapons, drink potions, and survive every room.</p><div class="game-card-bottom"><span>Solo strategy</span><span>Quick rounds</span></div><div class="game-play">ENTER THE DUNGEON <span>↗</span></div></div>
         </button>
         <button class="game-card solitaire-card" data-game="solitaire">
-            <div class="game-card-art solitaire-card-art"><span class="playing-card-art red">♦<b>A</b></span><span class="playing-card-art black">♠<b>K</b></span><span class="card-number">07</span></div>
+            <div class="game-card-art solitaire-card-art"><span class="playing-card-art red">♦<b>A</b></span><span class="playing-card-art black">♠<b>K</b></span><span class="card-number">08</span></div>
             <div class="game-card-content"><div class="game-card-top"><span class="game-category">THE CLASSIC</span><span class="game-status">NEW</span></div><h2>Solitaire</h2><p>Play Klondike with draw-one cards. Build every foundation from Ace through King.</p><div class="game-card-bottom"><span>Draw one</span><span>Saved best score</span></div><div class="game-play">DEAL THE CARDS <span>↗</span></div></div>
         </button>
     </div>
 
     <div id="scoundrelWindow" class="game-window card-game-window">
-        <div class="game-window-header"><div><h2>Scoundrel</h2><span>Survive the deck.</span></div><div class="window-buttons"><button id="scoundrelRules" class="pause-button">How to play</button><button id="scoundrelNew" class="pause-button">New game</button><button id="closeScoundrel" class="close-button" aria-label="Back to games">✕</button></div></div>
+        <div class="game-window-header"><div><h2>Scoundrel</h2><span>Survive the deck.</span></div><div class="window-buttons"><button id="scoundrelFullscreen" class="fullscreen-button">⛶ FULL SCREEN</button><button id="scoundrelRules" class="pause-button">How to play</button><button id="scoundrelNew" class="pause-button">New game</button><button id="closeScoundrel" class="close-button" aria-label="Back to games">✕</button></div></div>
         <div class="scoundrel-layout">
             <section class="scoundrel-board"><div class="card-game-stats"><div><small>Health</small><strong id="scoundrelHealth">20</strong></div><div><small>Weapon</small><strong id="scoundrelWeapon">None</strong></div><div><small>Dungeon</small><strong id="scoundrelDeck">44</strong></div></div><div id="scoundrelMessage" class="card-game-message" role="status">Choose a card from the room.</div><div id="scoundrelRoom" class="scoundrel-room" aria-label="Current room"></div><div class="scoundrel-actions"><button id="scoundrelAvoid">Avoid this room</button></div></section>
             <aside class="card-game-sidebar"><span class="eyebrow">YOUR RUN</span><h3>Choose three cards.</h3><p>Spades and clubs are monsters. Diamonds are weapons. Hearts restore health.</p><div class="scoundrel-legend"><span>♠ ♣ Monster</span><span>♦ Weapon</span><span>♥ Potion</span></div><p id="scoundrelDetail">You may avoid a full room, but not two rooms in a row.</p></aside>
@@ -167,7 +172,7 @@
     </div>
 
     <div id="solitaireWindow" class="game-window card-game-window solitaire-window">
-        <div class="game-window-header"><div><h2>Solitaire</h2><span>Classic Klondike, draw one.</span></div><div class="window-buttons"><button id="solitaireRules" class="pause-button">How to play</button><button id="solitaireNew" class="pause-button">New deal</button><button id="closeSolitaire" class="close-button" aria-label="Back to games">✕</button></div></div>
+        <div class="game-window-header"><div><h2>Solitaire</h2><span>Classic Klondike, draw one.</span></div><div class="window-buttons"><button id="solitaireFullscreen" class="fullscreen-button">⛶ FULL SCREEN</button><button id="solitaireRules" class="pause-button">How to play</button><button id="solitaireNew" class="pause-button">New deal</button><button id="closeSolitaire" class="close-button" aria-label="Back to games">✕</button></div></div>
         <div class="solitaire-toolbar"><span>Moves <b id="solitaireMoves">0</b></span><span>Score <b id="solitaireScore">0</b></span><span>Best <b id="solitaireBest">0</b></span><span id="solitaireMessage" role="status">Select the deck to draw.</span></div>
         <div id="solitaireBoard" class="solitaire-board"><div id="solitaireTop" class="solitaire-top"></div><div id="solitaireTableau" class="solitaire-tableau"></div></div>
     </div>
@@ -651,6 +656,13 @@
 
         </div>
 
+    </div>
+
+    <div id="polyWindow" class="game-window poly-window">
+        <div class="game-window-header"><div><h2>Poly Track</h2><span>Three laps. One clean line.</span></div><div class="window-buttons"><button id="polyFullscreen" class="fullscreen-button">⛶ FULL SCREEN</button><button id="polyNew" class="pause-button">New race</button><button id="closePoly" class="close-button" aria-label="Back to games">✕</button></div></div>
+        <div class="poly-toolbar"><span>Lap <b id="polyLap">1 / 3</b></span><span>Time <b id="polyTime">0.00</b></span><span>Best <b id="polyBest">--</b></span><span id="polyMessage" role="status">Press start when you are ready.</span><button id="polyStart" class="primary-button">START RACE</button></div>
+        <div class="poly-stage"><canvas id="polyCanvas" width="960" height="540" tabindex="0" role="img" aria-label="Poly Track racing game. Use the arrow keys or WASD to steer and accelerate."></canvas><div id="polyOverlay" class="poly-overlay"><div><span class="eyebrow">POLY TRACK</span><h3 id="polyOverlayTitle">Ready to race?</h3><p id="polyOverlayText">Hold the racing line for three laps.</p><button id="polyAction" class="primary-button">START RACE</button></div></div></div>
+        <div class="poly-controls"><span><b>Steer</b> A D / Left Right</span><span><b>Accelerate</b> W / Up</span><span><b>Brake</b> S / Down</span><span><b>Reset</b> R</span></div>
     </div>
 
 </section>
